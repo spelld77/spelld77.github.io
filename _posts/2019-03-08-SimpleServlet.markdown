@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Delete Servlet"
+title:  "Simple Servlet Work"
 date:   2019-03-08 08:54:59
 author: Db Jin
 categories: Study
