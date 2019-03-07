@@ -1,0 +1,50 @@
+---
+layout: post
+title:  "Markdown_renshuu"
+date:   2019-03-07 22:33:20
+author: Db Jin
+categories: Diary
+---
+
+This is my First github blog post.
+
+```javascript
+function hello{
+    var sum = 0;
+
+}
+```
+
+[naver](http://www.naver.com)
+youcando
+* hello
+* rage
+
+| header | hello | dragon |
+| ------ | ----- | ----- |
+| 홍길동| 1학년 | 1반|
+| 홍길3| 1학년 | 1반|
+| 홍길동도동| 1학년 | 1반|
+| 홍길동| 1학년 | 1반|
+
+
+**굵은 글자**
+*기울여 쓰기*
+
+* dragon
+    * hello
+        * dfjoi
+    * helo
+    * makane
+* amji
+
+head | middle | end
+---  | ---    | --- 
+dragon | wow  | hean
+
+![](../assets/logo.png)
+
+<a href=#><img src="../assets/logo.png" width="50"></a>
+
+> 인용문
+>> 인용문 2
