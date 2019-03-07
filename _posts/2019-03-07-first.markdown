@@ -1,0 +1,12 @@
+---
+layout: post
+title:  "My Blog Post_1"
+date:   2019-03-07 20:16:20
+author: Db Jin
+categories: Diary
+---
+
+This is my First github blog post.
+
+이곳에 여러가지 글을 써보려고 한다.
+내가 실수하는 것이나 어떤 것이든지
