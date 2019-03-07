@@ -42,7 +42,7 @@ head | middle | end
 ---  | ---    | --- 
 dragon | wow  | hean
 
-![](../assets/logo.png)
+![](/assets/logo.png)
 
 <a href=#><img src="../assets/logo.png" width="50"></a>
 
