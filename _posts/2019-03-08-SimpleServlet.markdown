@@ -5,7 +5,7 @@ date:   2019-03-08 08:54:59
 author: Db Jin
 categories: Study
 ---
-#web.xml
+## web.xml
 ```xml
 <!-- 서블릿 설정 -->  
   <servlet>
@@ -56,7 +56,7 @@ categories: Study
   </context-param>
 ```
 
-##List Servlet
+## List Servlet
 ```java
 @WebServlet("/member/list")
 public class MemberListServlet extends HttpServlet {
@@ -162,7 +162,7 @@ public class MemberListServlet extends HttpServlet {
 
 }
 ```
-##Add Servlet
+## Add Servlet
 ```java
 @WebServlet("/member/add")
 public class MemberAddServlet extends HttpServlet {
@@ -233,7 +233,7 @@ public class MemberAddServlet extends HttpServlet {
 }
 ```
 
-##Update Servlet
+## Update Servlet
 ```java
 //@WebServlet(
 //		urlPatterns= {"/member/update"},
@@ -330,7 +330,7 @@ public class MemberUpdateServlet extends HttpServlet {
 
 ```
 
-##Delete Servlet
+## Delete Servlet
 ```java
 @WebServlet("/member/delete")
 public class MemberDeleteServlet extends HttpServlet {
