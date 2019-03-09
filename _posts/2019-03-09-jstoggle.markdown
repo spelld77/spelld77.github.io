@@ -1,0 +1,119 @@
+---
+layout: post
+title:  "Markdown_renshuu"
+date:   2019-03-09 18:33:20
+author: Db Jin
+categories: Study
+---
+
+## 클릭할때 토글
+```javascript
+//클릭할때 배경색 바꾸기 (방법1)
+var isPurple = false;
+button.addEventListener("click", function(){
+    
+    if(isPurple){
+        document.body.style.background = "white";
+    } else{
+        document.body.style.background = "purple";
+    }
+    isPurple = !isPurple;
+});
+
+//클릭할때 배경색 바꾸기 (방법2)
+button.addEventListener("click", function(){
+    document.body.classList.toggle("purple");
+});
+
+```
+
+## 점수판 ScoreKeeper.html
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Score Keeper</title>
+    <style>
+    .winner{
+        color:green;
+    }
+    </style>
+</head>
+<body>
+    <h1><span id="p1Display">0</span> to <span id="p2Display">0</span></h1>
+    <p>Playing to : <span>5</span></p>
+    <input type="number">
+    <button id="p1">Player One</button>
+    <button id="p2">Player Two</button>
+    <button id="reset">Reset</button>
+
+    <script src="ScoreKeeper.js"></script>
+</body>
+</html>
+```
+
+
+##  ScoreKeeper.js
+
+```javascript
+var p1Button = document.querySelector("#p1");
+var p2Button = document.querySelector("#p2");
+var resetButton = document.querySelector("#reset");
+var p1Display =document.querySelector("#p1Display");
+var p2Display =document.querySelector("#p2Display");
+var numInput = document.querySelector("input");
+var winningScoreDisplay =document.querySelector("p span");
+var p1Score = 0;
+var p2Score = 0;
+var gameOver = false;
+var winningScore  = 5;
+
+p1Button.addEventListener("click", function(){
+    if(!gameOver){
+        p1Score++;
+        if(p1Score === winningScore){
+            p1Display.classList.add("winner");
+            gameOver = true;
+        }
+        p1Display.textContent = p1Score;
+    }
+});
+
+
+p2Button.addEventListener("click", function(){
+    
+    if(!gameOver){
+        p2Score++;
+        if(p2Score === winningScore){
+            p2Display.classList.add("winner");
+            gameOver = true;
+        }
+        p2Display.textContent = p2Score;
+    }
+    
+});
+
+function reset(){
+    p1Score = 0;
+    p2Score = 0;
+    p1Display.textContent = 0;
+    p2Display.textContent = 0;
+    p1Display.classList.remove("winner");
+    p2Display.classList.remove("winner");
+    gameOver = false;
+}
+//리셋버튼
+resetButton.addEventListener("click", function(){
+    reset();
+});
+
+
+
+//최대 점수
+numInput.addEventListener("change", function(){
+    winningScoreDisplay.textContent = numInput.value;
+    winningScore = Number(numInput.value); //numInput.value가 문자
+    reset();
+});
+
+```
