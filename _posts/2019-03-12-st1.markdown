@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "MVC 시작"
-date:   2015-03-12 08:43:59
+date:   2019-03-12 08:43:59
 author: Ben Centra
 categories: Dummy
 tags: Study
