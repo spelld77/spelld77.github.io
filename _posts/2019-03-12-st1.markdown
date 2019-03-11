@@ -39,4 +39,4 @@ public class Member {
 		return this;
 	}
 ```
-[셋터메소드 호출정리](https://i.imgur.com/HPkgbW0.jpg)
+![셋터메소드 호출정리](https://i.imgur.com/HPkgbW0.jpg)
