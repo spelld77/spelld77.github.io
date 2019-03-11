@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "March 11 Study"
+date:   2019-03-11 23:55:20
+author: Db Jin
+categories: Study
+---
+
+## 자바 컴파일
+```
+javac -d . score.java
+
+```
+
+## JSP 전용 태그
+* 지시자 - page, taglib, include
+* 스크립트릿
+* 선언문 <%! 멤버 변수 및 메서드 선언 %>
+    * _jspService() 밖 클래스 블록안에 복사됨 (위치 상관없음)
+* 표현식 <%= %>
+
+
+## 사용자 정의함수 (C언어)
+
+```c
+#include <stdio.h>
+void func(int i, int j);
+
+main(){
+	int a = 3, b = 12;
+	func(a,b); //answer: 9, 4
+	printf("%d, %d\n", a, b); //answer: 3, 12
+}
+
+void func(i,j)
+int i, j;
+{
+	i *= 3;
+	j /= 3;
+	printf("%d, %d\n", i, j);
+}
+```
