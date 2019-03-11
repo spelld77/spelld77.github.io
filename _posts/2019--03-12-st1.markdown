@@ -1,0 +1,42 @@
+---
+layout: post
+title:  "MVC 시작"
+date:   2015-03-12 08:43:59
+author: Ben Centra
+categories: Dummy
+tags: Study
+---
+
+## 셋터메소드 연속호출
+```java
+public class Member {
+	protected int no;
+	protected String name;
+	protected String email;
+	protected String password;
+	protected Date createdDate;
+	protected Date modifiedDate;
+	
+	public int getNo() {
+		return no;
+	}
+	public Member setNo(int no) {
+		this.no= no;
+		return this;
+	}
+	public String getName() {
+		return name;
+	}
+	public Member setName(String name) {
+		this.name = name;
+		return this;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public Member setEmail(String email) {
+		this.email = email;
+		return this;
+	}
+```
+[셋터메소드 호출정리](https://i.imgur.com/HPkgbW0.jpg)
