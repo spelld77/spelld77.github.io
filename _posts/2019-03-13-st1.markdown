@@ -1,0 +1,20 @@
+---
+layout: post
+title:  "March12 Study(MVC기초...)"
+date:   2019-03-12 08:43:59
+author: Db Jin
+categories: Study
+tags: Study
+---
+
+## JAVA
+
+```java
+<meta http-equiv="Refresh" content="1; url=login">//출력후 1초뒤 입력폼 재요청
+```
+### JSP 액션
+ * jsp:useBean
+ ```jsp
+<jsp:useBean id="이름" scope="page|request|session|application" class="클래스명" type="타입명"/>
+ ```
+ ![jsp:useBean사용](https://imgur.com/a/dDOWI01)
