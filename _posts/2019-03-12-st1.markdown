@@ -40,3 +40,59 @@ public class Member {
 	}
 ```
 ![셋터메소드 호출정리](https://i.imgur.com/HPkgbW0.jpg)
+
+## 인클루드
+```java
+<jsp:include page="인클루딩 할 서블릿 JSP의 URL"/>
+-->
+RequestDispatcher  rd = request.getRequestDispatcher("Header.jsp");
+rd.include(request, response);
+```
+
+## Servlet Context 활용
+```xml
+  <servlet>
+  	<servlet-name>AppInitServlet</servlet-name>
+  	<servlet-class>spms.servlet.AppInitServlet</servlet-class>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+```
+```java
+public class AppInitServlet extends HttpServlet {
+
+	@Override
+	public void init(ServletConfig config) throws ServletException {
+		System.out.println("AppInitServlet 준비...");
+		super.init(config);
+		
+		try {
+			ServletContext sc = this.getServletContext();
+			Class.forName(sc.getInitParameter("driver"));
+			Connection conn = DriverManager.getConnection(
+					sc.getInitParameter("url"),
+					sc.getInitParameter("username"),
+					sc.getInitParameter("password"));
+			sc.setAttribute("conn", conn);
+		}catch (Throwable e) {
+			
+		}
+	}
+
+	@Override
+	public void destroy() {
+		System.out.println("AppInitServlet 마무리...");
+		super.destroy();
+		Connection conn = (Connection) this.getServletContext().getAttribute("conn");
+		try {
+			if(conn != null && conn.isClosed() ==false) {
+				conn.close();
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	
+	
+}
+```
