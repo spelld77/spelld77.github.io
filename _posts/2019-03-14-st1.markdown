@@ -32,6 +32,11 @@ tags: JSP,JSTL, Algorithm
 </textarea>
 
 ```
+## 의존성 주입
+
+* 의존성 주입(DI, Dependency Injection) == (IoC, Inversion of Control)
+* 필요한 객체를 외부로부터 주입 받는 것
+![Imgur](https://i.imgur.com/HPyl51b.jpg)
 
 ## 알고리즘
 
