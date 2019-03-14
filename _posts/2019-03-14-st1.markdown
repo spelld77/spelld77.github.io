@@ -1,0 +1,76 @@
+---
+layout: post
+title:  "jstl, algoritm..."
+date:   2019-03-14 13:22:59
+author: Db Jin
+categories: Study
+tags: JSP,JSTL, Algorithm
+---
+
+## JSTL
+```html
+<% pageContext.setAttribute("tokens", "v1=20&v2=40&v3=50"); %>
+
+<!--특정 구분자로 분리하여 반복문 -->
+<ul>
+	<c:forTokens var="item1" items="${tokens}" delims="&">
+		<li>${item1}</li>
+	</c:forTokens>
+</ul>
+
+<!--매개변수 포함한 url 태그 만들기  -->
+<c:url var="calcUrl" value="http://localhost:9999/calc">
+	<c:param name="v1" value="20"/>
+	<c:param name="v2" value="10"/>
+	<c:param name="op" value="+"/>
+</c:url>
+<a href="${calcUrl}">계산하기</a>
+
+<!-- 내용가져오기 -->
+<textarea rows="10" cols="80">
+	<c:import url="https://github.com/"/>
+</textarea>
+
+```
+
+## 알고리즘
+
+### 팩토리얼
+```c
+int factorial(int x){
+	if(x <= 1)
+		return 1;
+	else
+		return x * facto(x-1);
+}
+```
+
+### 피보나치
+```c
+//fivo(0) = 0
+//fivo(1) = 1
+//fivo(2) = fivo(0) + fivo(1)
+//fivo(n) = fivo(n-2) + fivo(n-1)
+
+//피보나치 x번째 값을 리턴 (0부터 시작) 
+int fivo(int x){
+	if(x == 0)
+		return 0;
+	else if(x == 1)
+		return 1;
+	else
+		return fivo(x-2) + fivo(x-1);
+	
+}
+
+void main(){
+
+	int i; //for문을 위해서 i지정
+	
+	//피보나치 10개의 값 출력 
+	for(i=0; i<10; i++){
+		printf("%3d", fivo(i));	
+	}
+}
+```
+![fivoresult](https://i.imgur.com/OLjglk2.png)
