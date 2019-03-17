@@ -70,3 +70,7 @@ public class DispatcherServlet extends HttpServlet {
 ```
 
 ![Imgur](https://i.imgur.com/U9HJFku.jpg)
+
+### 이클립스에서 프로젝트 복사한 후에는
+* 톰캣 실행 환경에 추가
+* server에서 path 수정
