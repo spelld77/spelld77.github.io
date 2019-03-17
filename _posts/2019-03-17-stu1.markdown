@@ -1,0 +1,72 @@
+---
+layout: post
+title:  "mini mvc frontcontroller"
+date:   2019-03-17 23:10:59
+author: Db Jin
+categories: Study
+tags: HttpServletRequest
+---
+
+## 프론트 컨트롤러
+```java
+@WebServlet("*.do")
+public class DispatcherServlet extends HttpServlet {
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		resp.setContentType("text/html; charset=UTF-8");
+        String servletPath = req.getServletPath(); // 클라이언트가 요청한 서블릿 경로
+		try {
+			String pageControllerPath = null; // 이동할 페이지 서블릿
+
+			if ("/member/list.do".equals(servletPath)) {
+				pageControllerPath = "/member/list";
+			} else if ("/member/add.do".equals(servletPath)) {
+				pageControllerPath = "/member/add";
+				if (req.getParameter("email") != null) { //파라미터 있는지 확인
+					req.setAttribute("member", new Member() //request에서 받은 정보를 Member객체로 만듦
+													.setNo(Integer.parseInt(req.getParameter("no")))
+													.setEmail(req.getParameter("email"))
+													.setName(req.getParameter("name")));
+				}
+			} else if ("/member/update.do".equals(servletPath)) {
+				pageControllerPath = "/member/update";
+				if (req.getParameter("email") != null) {
+					req.setAttribute("member", new Member()
+													.setNo(Integer.parseInt(req.getParameter("no")))
+													.setEmail(req.getParameter("email"))
+													.setName(req.getParameter("name")));
+				}
+			} else if ("/member/delete.do".equals(servletPath)) {
+				pageControllerPath = "/member/delte";
+			} else if ("/auth/login.do".equals(servletPath)) {
+				pageControllerPath = "/auth/login";
+			} else if ("/auth/logout.do".equals(servletPath)) {
+				pageControllerPath = "/auth/logout";
+			}
+			//페이지 컨트롤러 실행 위임
+			RequestDispatcher rd = req.getRequestDispatcher(pageControllerPath);
+			rd.include(req, resp);
+			
+			//페이지 컨트롤러에서 받은 후
+			String viewUrl = (String) req.getAttribute("viewUrl"); //이동할 뷰 url
+			if (viewUrl.startsWith("redirect:")) {
+				resp.sendRedirect(viewUrl.substring(9));
+				return;
+			} else {
+				rd = req.getRequestDispatcher(viewUrl);
+				rd.include(req, resp);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			req.setAttribute("error", e); //에러를 requeset 보관소에 저장
+			RequestDispatcher rd = req.getRequestDispatcher("/Error.jsp"); //에러 jsp 이동
+			rd.forward(req, resp);
+		}
+	}
+
+}
+
+```
+
+![Imgur](https://i.imgur.com/U9HJFku.jpg)
