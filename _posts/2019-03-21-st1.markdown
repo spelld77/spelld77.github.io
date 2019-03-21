@@ -1,0 +1,138 @@
+---
+layout: post
+title:  "페이지 컨트롤러(클래스)"
+date:   2019-03-21 07:50:59
+author: Db Jin
+categories: Study
+tags: java
+---
+
+## 프론트 컨트롤러
+```java
+
+@WebServlet("*.do")
+public class DispatcherServlet extends HttpServlet {//프론트 컨트롤러
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {	
+		resp.setContentType("text/html; charset=UTF-8");
+		String servletPath = req.getServletPath(); // 들어온 요청
+		try {
+			ServletContext sc = this.getServletContext();
+			HashMap<String, Object> model = new HashMap<String, Object>();//페이지 컨트롤러에게 전달할 내용
+			model.put("memberDao", sc.getAttribute("memberDao")); //Dao객체 전달 위해서
+			model.put("session",req.getSession()); //세션
+			Controller pageController = null; //페이지 컨트롤러
+			
+			if ("/member/list.do".equals(servletPath)) {
+				pageController= new MemberListController();
+				
+			} else if ("/member/add.do".equals(servletPath)) {
+				pageController = new MemberAddController();
+				if (req.getParameter("email") != null) { //파라미터 있는지 확인(MemberForm.jsp에서 왔는지 확인)
+					model.put("member", new Member() //request에서 받은 정보를 Member객체로 만듦
+													.setPassword(req.getParameter("password"))
+													.setEmail(req.getParameter("email"))
+													.setName(req.getParameter("name")));
+				}
+			} else if ("/member/update.do".equals(servletPath)) {
+				pageController = new MemberUpdateController();
+				model.put("no", Integer.parseInt(req.getParameter("no")));
+				if (req.getParameter("email") != null) { //멤버 업데이트 폼 작성 후
+					
+					model.put("member", new Member()
+													.setNo(Integer.parseInt(req.getParameter("no")))
+													.setEmail(req.getParameter("email"))
+													.setName(req.getParameter("name")));
+				}
+				
+			} else if ("/member/delete.do".equals(servletPath)) {
+				pageController = new MemberDeleteController();
+				model.put("no", Integer.parseInt(req.getParameter("no")));
+				
+			} else if ("/auth/login.do".equals(servletPath)) {
+				pageController = new LoginController();
+				if(req.getParameter("email") != null) {
+					model.put("logInfo", new Member()
+													.setEmail(req.getParameter("email"))
+													.setPassword(req.getParameter("password")));
+				}
+			} else if ("/auth/logout.do".equals(servletPath)) {
+				pageController = new LogOutController();
+			}
+			
+			//페이지 컨트롤러 실행
+			String viewUrl = pageController.execute(model);
+			
+			
+			//req저장소에 페이지 컨트롤러에서 얻은 객체 저장
+			for(String key: model.keySet()) {
+				req.setAttribute(key, model.get(key));
+			}
+			
+			//뷰로 이동
+			if (viewUrl.startsWith("redirect:")) {
+				resp.sendRedirect(viewUrl.substring(9));
+				return;
+				
+			} else {
+				RequestDispatcher rd = req.getRequestDispatcher(viewUrl);
+				rd.include(req, resp);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace(); 
+			req.setAttribute("error", e); //에러를 requeset 보관소에 저장
+			RequestDispatcher rd = req.getRequestDispatcher("/Error.jsp"); //에러 jsp 이동
+			rd.forward(req, resp);
+		}
+	}
+
+}
+
+```
+## 로그인 컨트롤러
+```java
+public class LoginController implements Controller {
+	@Override
+	public String execute(Map<String, Object> model) throws Exception {
+		MemberDao memberDao = (MemberDao)model.get("memberDao");
+		if(model.get("logInfo") == null){ //get
+			return "/auth/LoginForm.jsp";
+		} else { //post
+			Member logInfo = (Member) model.get("logInfo");
+			//이메일,패스워드 맞는계정있는지 확인(있으면 member, 없으면 null 리턴)
+            Member member = memberDao.exist(
+											logInfo.getEmail(),
+											logInfo.getPassword());
+			
+			if(member != null) {//맞는 계정 존재할 경우 세션
+				HttpSession session = (HttpSession)model.get("session");
+				session.setAttribute("member", member);
+				return "redirect:../member/list.do";
+			} else {//계정이 없을 때
+				return "/auth/LogInFail.jsp";
+			}
+		}
+		
+	}
+}
+```
+
+## 회원 추가 컨트롤러
+```java
+public class MemberAddController implements Controller{
+	@Override
+	public String execute(Map<String, Object> model) throws Exception {
+		if(model.get("member") == null) { //입력폼을 요청할 때
+			return "/member/MemberForm.jsp";
+		} else { //회원등록 요청할 때
+			MemberDao memberDao = (MemberDao) model.get("memberDao");
+			
+			Member member = (Member) model.get("member");
+			memberDao.insert(member);
+			
+			return "redirect:list.do";
+		}
+	}
+}
+```
