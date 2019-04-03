@@ -1,0 +1,34 @@
+---
+layout: post
+title:  "JSTL 연습"
+date:   2019-04-03 16:50:59
+author: Db Jin
+categories: Study
+tags: java
+---
+
+## JSP
+```jsp
+	<table border="1">
+		<tbody>
+			<tr>
+				<th>코드</th>
+				<th>상품명</th>
+				<th>가격</th>
+				<th>원산지</th>
+				<th>설명</th>
+			</tr>
+			
+			<c:forEach var="product" items="${products}"><!--from AllList.jsp req.attribute  -->
+				<tr>
+					<td>${product.code}</td>
+					<td>${product.name}</td>
+					<td>${product.price}</td>
+					<td>${product.origin}</td>
+					<td>${product.explain}</td>
+				</tr>
+			</c:forEach>
+			
+		</tbody>
+	</table>
+```
