@@ -1,0 +1,71 @@
+---
+layout: post
+title:  "study_ajax"
+date:   2019-06-14 02:05:59
+author: DB
+categories: Study
+tags: Study
+---
+
+
+###java세션 받을 때
+$필요
+```java
+
+<c:forEach var="emp" items="${eList}">
+${employee.name}<br>
+</c:forEach>
+
+//EL char -> string
+<c:if test="${employee.gender.toString() == '2' }">여자</c:if>
+
+```
+
+###Ajax 코드
+
+```javascript
+
+//id중복체크
+	function checkId(){
+		
+		var id_info = document.getElementById("id_info");
+		
+		var inputed = $('#id').val();
+		
+		$.ajax({
+			data :{
+				id : inputed
+			},
+			url : "checkId",
+			dataType: "json",
+			success : function(data){
+				
+				if(inputed==""){
+					  $("#signUp").prop("disabled", true);
+	                  $("#signUp").css("background-color", "#aaaaaa");
+	                  $("#id").css("background-color", "#FFCECE");
+	                  id_info.innerHTML ="ID를 입력하세요";
+	             	
+	                  
+				} else if(data == '1'){
+					$("#signUp").prop("disabled", true);
+                    $("#signUp").css("background-color", "#aaaaaa");
+                    $("#id").css("background-color", "#FFCECE");
+                    id_info.innerHTML ="이미 존재하는 ID입니다";
+                   
+                    
+				} else{
+					$("#signUp").prop("disabled", false);
+					 $("#signUp").css("background-color", "#0E5B22");
+					 $("#id").css("background-color", "#AEE8BD");
+					 id_info.innerHTML ="사용가능한 ID입니다";
+				}
+			}
+			
+		});
+		
+	}
+
+
+```
+
